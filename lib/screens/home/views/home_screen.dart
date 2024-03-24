@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expence_tracker/screens/home/views/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -50,6 +51,7 @@ class HomeScreen extends StatelessWidget {
           child: const Icon(Icons.add),
         ),
       ),
+      body: const MainScreen(),
     );
   }
 }
