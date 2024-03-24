@@ -1,3 +1,4 @@
+import 'package:expence_tracker/screens/home/views/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyAppView extends StatelessWidget {
@@ -17,6 +18,7 @@ class MyAppView extends StatelessWidget {
           tertiary: const Color(0xffFF8D6C),
         ),
       ),
+      home: const HomeScreen(),
     );
   }
 }
