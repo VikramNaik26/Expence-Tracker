@@ -1,7 +1,10 @@
 import 'dart:math';
 
+import 'package:expence_tracker/data/data.dart';
 import 'package:expence_tracker/widgets/app_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 class MainScreen extends StatelessWidget {
@@ -152,7 +155,83 @@ class MainScreen extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              const Gap(32.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const AppText(
+                    text: 'Transactions',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: AppText(
+                      text: 'View all',
+                      fontSize: 14,
+                      textColor: Theme.of(context).colorScheme.outline,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
+              const Gap(14.0),
+              SizedBox(
+                height: 86 * transactionList.length.toDouble(),
+                child: ListView.separated(
+                  itemBuilder: (context, index) => DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: transactionList[index]['color'],
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              transactionList[index]['icon'],
+                            ],
+                          ),
+                          const Gap(8.0),
+                          Expanded(
+                            child: AppText(
+                              text: transactionList[index]['name'],
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          _CardText(
+                            isTotalPrice: false,
+                            headingText:
+                                '${transactionList[index]['totalAmt']}\n',
+                            priceText: transactionList[index]['date'],
+                            headingTextColor:
+                                Theme.of(context).colorScheme.onBackground,
+                            priceTextColor:
+                                Theme.of(context).colorScheme.outline,
+                            headingFontSize: 14.0,
+                            priceTextFontSize: 12.0,
+                            textAlign: TextAlign.end,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  separatorBuilder: (context, index) => const Gap(10.0),
+                  itemCount: transactionList.length,
+                ),
+              ),
             ],
           ),
         ),
@@ -171,26 +250,32 @@ class _CardText extends StatelessWidget {
     this.priceTextFontSize,
     this.priceTextFontWeight,
     this.lineHeight,
+    this.headingTextColor,
+    this.priceTextColor,
+    this.textAlign,
   });
 
   final String? headingText;
   final String? priceText;
   final double? headingFontSize;
+  final Color? headingTextColor;
   final double? priceTextFontSize;
   final FontWeight? headingFontWeight;
   final FontWeight? priceTextFontWeight;
+  final Color? priceTextColor;
   final double? lineHeight;
   final bool isTotalPrice;
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
     return RichText(
-      textAlign: TextAlign.center,
+      textAlign: textAlign ?? TextAlign.center,
       text: TextSpan(
         text: headingText ?? 'Total Balance\n',
         style: TextStyle(
           fontSize: headingFontSize ?? 16.0,
-          color: Colors.white,
+          color: headingTextColor ?? Colors.white,
           fontWeight: headingFontWeight ?? FontWeight.w600,
           height: lineHeight ?? 1.6,
         ),
@@ -205,6 +290,7 @@ class _CardText extends StatelessWidget {
                   : priceTextFontSize,
               fontWeight: priceTextFontWeight ?? FontWeight.bold,
               letterSpacing: isTotalPrice ? 4 : 2,
+              color: priceTextColor ?? Colors.white,
             ),
           ),
         ],

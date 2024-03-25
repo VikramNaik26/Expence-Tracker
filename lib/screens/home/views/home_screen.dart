@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home_rounded),
               label: 'home',
             ),
             BottomNavigationBarItem(
