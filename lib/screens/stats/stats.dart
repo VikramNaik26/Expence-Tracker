@@ -1,9 +1,6 @@
 import 'package:expence_tracker/screens/stats/chart.dart';
 import 'package:expence_tracker/widgets/app_text.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 class StatScreen extends StatelessWidget {
@@ -28,9 +25,12 @@ class StatScreen extends StatelessWidget {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width,
-                padding:
-                    const EdgeInsets.only(left: 18, top: 24, right: 6, bottom: 14),
-
+                padding: const EdgeInsets.only(
+                  left: 18,
+                  top: 24,
+                  right: 6,
+                  bottom: 14,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
