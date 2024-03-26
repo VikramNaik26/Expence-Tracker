@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late int index = 0;
-  Color selectedItem = Colors.blue;
+  Color selectedItem = Colors.black;
   Color unSelectedItem = Colors.grey;
 
   @override
@@ -36,14 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home_rounded,
+                index == 0 ? Icons.grid_view_rounded : Icons.grid_view_outlined,
+                size: 24,
                 color: index == 0 ? selectedItem : unSelectedItem,
               ),
               label: 'home',
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.graphic_eq_sharp,
+                Icons.bar_chart_outlined,
+                size: 24,
                 color: index == 1 ? selectedItem : unSelectedItem,
               ),
               label: 'graph',
@@ -69,7 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
               transform: const GradientRotation(pi / 4),
             ),
           ),
-          child: const Icon(Icons.add),
+          child: const Icon(
+            Icons.add,
+            size: 32,
+          ),
         ),
       ),
       body: index == 0 ? const MainScreen() : const StatScreen(),

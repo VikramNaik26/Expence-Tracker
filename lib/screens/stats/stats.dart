@@ -12,14 +12,29 @@ class StatScreen extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 18.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppText(
-                text: 'Transaction',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: const Icon(Icons.monetization_on_outlined),
+                  ),
+                  const Gap(10.0),
+                  const Expanded(
+                    child: AppText(
+                      text: 'Transactions',
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
               const Gap(20.0),
               Container(

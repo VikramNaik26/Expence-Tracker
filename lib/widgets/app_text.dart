@@ -22,6 +22,7 @@ class AppText extends StatelessWidget {
         color: textColor ?? Theme.of(context).colorScheme.onBackground,
         fontSize: fontSize ?? 12,
         fontWeight: fontWeight ?? FontWeight.normal,
+        fontFamily: 'Poppins',
       ),
     );
   }

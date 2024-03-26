@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 18.0),
           child: Column(
             children: [
               const _AppHeader(),
@@ -50,9 +50,7 @@ class MainScreen extends StatelessWidget {
 }
 
 class _AppHeader extends StatelessWidget {
-  const _AppHeader({
-    super.key,
-  });
+  const _AppHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +94,15 @@ class _AppHeader extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {},
-          icon: const Icon(
-            Icons.settings,
+          icon: Container(
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: const Icon(
+              Icons.settings,
+            ),
           ),
         ),
       ],

@@ -20,8 +20,10 @@ class _MyChartState extends State<MyChart> {
   }
 
   BarChartGroupData makeGroupData(int x, double y) {
-    return BarChartGroupData(x: x, barRods: [
-      BarChartRodData(
+    return BarChartGroupData(
+      x: x,
+      barRods: [
+        BarChartRodData(
           toY: y,
           width: 10,
           gradient: LinearGradient(
@@ -36,8 +38,10 @@ class _MyChartState extends State<MyChart> {
             show: true,
             toY: 5,
             color: Colors.grey.shade300,
-          ))
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 
   List<BarChartGroupData> showingGroups() => List.generate(
@@ -78,7 +82,8 @@ class _MyChartState extends State<MyChart> {
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            reservedSize: 28,
+            reservedSize: 24,
+            interval: 1,
             getTitlesWidget: leftTitle,
           ),
         ),
@@ -118,8 +123,8 @@ class _MyChartState extends State<MyChart> {
 
   SideTitleWidget leftTitle(double value, TitleMeta meta) {
     final tileText = AppText(
-      text: value < 6 ? '${value + 1}K' : '',
-      fontSize: 8.0,
+      text: value < 6 ? '${value}K' : '',
+      fontSize: 10.0,
       fontWeight: FontWeight.bold,
       textColor: Colors.grey,
     );

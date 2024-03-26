@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CardText extends StatelessWidget {
   const CardText({
+    super.key,
     required this.isTotalPrice,
     this.headingText,
     this.priceText,
