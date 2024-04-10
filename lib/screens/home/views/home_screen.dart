@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expence_tracker/screens/add_expence/views/add_expenses.dart';
 import 'package:expence_tracker/screens/home/views/main_screen.dart';
 import 'package:expence_tracker/screens/stats/stats.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddExpense(),
+            ),
+          );
+        },
         shape: const CircleBorder(),
         child: Container(
           width: 60,
