@@ -1,6 +1,8 @@
+import 'package:expence_tracker/screens/add_expence/utils/get_contrast_color.dart';
 import 'package:expence_tracker/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
@@ -27,8 +29,6 @@ class _AddExpenseState extends State<AddExpense> {
     'tech',
     'travel',
   ];
-
-  late String iconSelected = '';
 
   @override
   void initState() {
@@ -97,6 +97,8 @@ class _AddExpenseState extends State<AddExpense> {
                         context: context,
                         builder: (cTa) {
                           bool isExpanded = false;
+                          late String iconSelected = '';
+                          late Color categoryColor = Colors.white;
                           return StatefulBuilder(
                             builder: (BuildContext context,
                                 void Function(void Function()) setState) {
@@ -108,7 +110,6 @@ class _AddExpenseState extends State<AddExpense> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       TextFormField(
-                                        readOnly: true,
                                         decoration: InputDecoration(
                                           isDense: true,
                                           filled: true,
@@ -216,12 +217,70 @@ class _AddExpenseState extends State<AddExpense> {
                                           : const SizedBox.shrink(),
                                       const Gap(16.0),
                                       TextFormField(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (cTa2) {
+                                              return AlertDialog(
+                                                content: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    ColorPicker(
+                                                      onColorChanged: (value) {
+                                                        setState(() {
+                                                          categoryColor = value;
+                                                        });
+                                                      },
+                                                      pickerColor: Colors.white,
+                                                    ),
+                                                    SizedBox(
+                                                      width: double.maxFinite,
+                                                      height: kToolbarHeight,
+                                                      child: TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(cTa2);
+                                                        },
+                                                        style: TextButton
+                                                            .styleFrom(
+                                                          backgroundColor:
+                                                              Colors.black,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                        ),
+                                                        child: const AppText(
+                                                          text: 'Save',
+                                                          textColor:
+                                                              Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        textAlignVertical:
+                                            TextAlignVertical.center,
                                         readOnly: true,
                                         decoration: InputDecoration(
                                           isDense: true,
                                           filled: true,
-                                          fillColor: Colors.white,
+                                          fillColor: categoryColor,
                                           hintText: "Color",
+                                          hintStyle: TextStyle(
+                                            color: getTextColor(categoryColor)
+                                                .withOpacity(0.65),
+                                          ),
                                           border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
@@ -229,6 +288,30 @@ class _AddExpenseState extends State<AddExpense> {
                                           ),
                                         ),
                                       ),
+                                      const Gap(16.0),
+                                      SizedBox(
+                                        width: double.maxFinite,
+                                        height: kToolbarHeight,
+                                        child: TextButton(
+                                          onPressed: () {
+                                            // TODO: Create category object
+                                            Navigator.pop(cTa);
+                                          },
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Colors.black,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          child: const AppText(
+                                            text: 'Save',
+                                            textColor: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
