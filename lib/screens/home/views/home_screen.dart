@@ -1,9 +1,12 @@
 import 'dart:math';
 
+import 'package:expence_tracker/screens/add_expence/blocs/create_category_bloc/create_category_bloc.dart';
 import 'package:expence_tracker/screens/add_expence/views/add_expenses.dart';
 import 'package:expence_tracker/screens/home/views/main_screen.dart';
 import 'package:expence_tracker/screens/stats/stats.dart';
+import 'package:expense_repository/expense_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -60,7 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddExpense(),
+              builder: (context) => BlocProvider(
+                create: (context) => CreateCategoryBloc(
+                  FirebaseExpenseRepo(),
+                ),
+                child: const AddExpense(),
+              ),
             ),
           );
         },
