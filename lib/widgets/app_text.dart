@@ -7,12 +7,14 @@ class AppText extends StatelessWidget {
     this.textColor,
     this.fontSize,
     this.fontWeight,
+    this.letterSpacing,
   });
 
   final String text;
   final Color? textColor;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final double? letterSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class AppText extends StatelessWidget {
         fontSize: fontSize ?? 12,
         fontWeight: fontWeight ?? FontWeight.normal,
         fontFamily: 'Poppins',
+        letterSpacing: letterSpacing ?? .6,
       ),
     );
   }

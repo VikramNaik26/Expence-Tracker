@@ -55,8 +55,9 @@ class _AddExpenseState extends State<AddExpense> {
           child: Column(
             children: [
               const AppText(
-                text: 'Add Expense',
-                fontSize: 22,
+                text: 'ADD EXPENSE',
+                fontSize: 24,
+                letterSpacing: 2,
                 fontWeight: FontWeight.bold,
               ),
               const Gap(20.0),
@@ -93,9 +94,12 @@ class _AddExpenseState extends State<AddExpense> {
               ),
               const Gap(16.0),
               datePickerInput(context),
-              const Gap(22.0),
+              const Expanded(
+                child: Gap(22.0),
+              ),
               SubmitButton(
-                text: 'Save',
+                text: 'SAVE',
+                enableGradientBackground: true,
                 onClick: () {},
               ),
             ],
@@ -243,7 +247,7 @@ class _AddExpenseState extends State<AddExpense> {
                                       pickerColor: Colors.white,
                                     ),
                                     SubmitButton(
-                                      text: 'Save',
+                                      text: 'SELECT',
                                       onClick: () {
                                         Navigator.pop(cTa2);
                                       },
@@ -273,7 +277,8 @@ class _AddExpenseState extends State<AddExpense> {
                     ),
                     const Gap(16.0),
                     SubmitButton(
-                      text: 'Save',
+                      text: 'CREATE',
+                      // enableGradientBackground: true,
                       onClick: () {
                         Category category = Category.empty;
                         category.categoryId = const Uuid().v1();
