@@ -9,11 +9,13 @@ class SubmitButton extends StatefulWidget {
     required this.text,
     this.onClick,
     this.enableGradientBackground = false,
+    this.isLoading = false,
   });
 
   final String text;
   final VoidCallback? onClick;
   final bool enableGradientBackground;
+  final bool isLoading;
 
   @override
   State<SubmitButton> createState() => _SubmitButtonState();
@@ -48,12 +50,14 @@ class _SubmitButtonState extends State<SubmitButton> {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: AppText(
-          text: widget.text,
-          textColor: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
+        child: widget.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : AppText(
+                text: widget.text,
+                textColor: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
       ),
     );
   }
