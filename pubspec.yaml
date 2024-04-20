@@ -41,6 +41,10 @@ dependencies:
 
   expense_repository:
     path: packages/expense_repository
+  firebase_core: ^2.30.0
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.5
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
