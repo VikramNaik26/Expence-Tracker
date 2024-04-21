@@ -1,11 +1,13 @@
 import 'package:expence_tracker/screens/home/widgets/expenses_card.dart';
 import 'package:expence_tracker/screens/home/widgets/transaction_list.dart';
 import 'package:expence_tracker/widgets/app_text.dart';
+import 'package:expense_repository/expense_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+  final List<Expense> expenses;
+  const MainScreen(this.expenses, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class MainScreen extends StatelessWidget {
                 ],
               ),
               const Gap(14.0),
-              const TransactionList(),
+              TransactionList(expenses: expenses),
             ],
           ),
         ),

@@ -1,13 +1,18 @@
 import 'package:expence_tracker/data/data.dart';
 import 'package:expence_tracker/screens/home/widgets/card_text.dart';
 import 'package:expence_tracker/widgets/app_text.dart';
+import 'package:expense_repository/expense_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   const TransactionList({
     super.key,
+    required this.expenses,
   });
+
+  final List<Expense> expenses;
 
   @override
   Widget build(BuildContext context) {
@@ -30,29 +35,35 @@ class TransactionList extends StatelessWidget {
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: transactionList[index]['color'],
+                        color: Color(expenses[index].category.color),
                         shape: BoxShape.circle,
                       ),
                     ),
-                    transactionList[index]['icon'],
+                    Image.asset(
+                      'assets/icons/${expenses[index].category.icon}.png',
+                      scale: 2,
+                      color: Colors.white,
+                    )
+                    // transactionList[index]['icon'],
                   ],
                 ),
                 const Gap(8.0),
                 Expanded(
                   child: AppText(
-                    text: transactionList[index]['name'],
+                    text: expenses[index].category.name,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 CardText(
                   isTotalPrice: false,
-                  headingText: '${transactionList[index]['totalAmt']}\n',
-                  priceText: transactionList[index]['date'],
+                  headingText: '₹ ${expenses[index].amount}.00\n',
+                  priceText:
+                      DateFormat('dd/MM/yyyy').format(expenses[index].date),
                   headingTextColor: Theme.of(context).colorScheme.onBackground,
                   priceTextColor: Theme.of(context).colorScheme.outline,
                   headingFontSize: 14.0,
-                  priceTextFontSize: 12.0,
+                  priceTextFontSize: 10.0,
                   textAlign: TextAlign.end,
                 ),
               ],
@@ -60,7 +71,7 @@ class TransactionList extends StatelessWidget {
           ),
         ),
         separatorBuilder: (context, index) => const Gap(10.0),
-        itemCount: transactionList.length,
+        itemCount: expenses.length,
       ),
     );
   }
