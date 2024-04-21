@@ -68,10 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
+              onPressed: () async {
+                var newExpense = await Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  MaterialPageRoute<Expense>(
                     builder: (context) => MultiBlocProvider(
                       providers: [
                         BlocProvider(
@@ -94,6 +94,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 );
+                if (newExpense != null) {
+                  setState(() {
+                    state.expenses.insert(0, newExpense);
+                  });
+                }
               },
               shape: const CircleBorder(),
               child: Container(
@@ -116,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            body: index == 0 ?  MainScreen(state.expenses) : const StatScreen(),
+            body: index == 0 ? MainScreen(state.expenses) : const StatScreen(),
           );
         } else {
           return const Scaffold(
