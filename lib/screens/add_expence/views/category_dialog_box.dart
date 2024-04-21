@@ -33,6 +33,8 @@ Future<dynamic> categoryDialogBox(BuildContext context) {
 
       bool isLoading = false;
 
+      Category category = Category.empty;
+
       return BlocProvider.value(
         value: context.read<CreateCategoryBloc>(),
         child: StatefulBuilder(
@@ -40,7 +42,7 @@ Future<dynamic> categoryDialogBox(BuildContext context) {
             return BlocListener<CreateCategoryBloc, CreateCategoryState>(
               listener: (context, state) {
                 if (state is CreateCategorySuccess) {
-                  Navigator.pop(cTa);
+                  Navigator.pop(cTa, category);
                 } else if (state is CreateCategoryLoading) {
                   setState(() {
                     isLoading = true;
@@ -205,11 +207,14 @@ Future<dynamic> categoryDialogBox(BuildContext context) {
                         isLoading: isLoading,
                         // enableGradientBackground: true,
                         onClick: () {
-                          Category category = Category.empty;
-                          category.categoryId = const Uuid().v1();
-                          category.name = categoryNameController.text;
-                          category.icon = iconSelected;
-                          category.color = categoryColor.value;
+                          setState(
+                            () {
+                              category.categoryId = const Uuid().v1();
+                              category.name = categoryNameController.text;
+                              category.icon = iconSelected;
+                              category.color = categoryColor.value;
+                            },
+                          );
                           context
                               .read<CreateCategoryBloc>()
                               .add(CreateCategory(category));

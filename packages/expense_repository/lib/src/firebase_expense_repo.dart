@@ -20,7 +20,7 @@ class FirebaseExpenseRepo implements ExpenseRepository {
   }
 
   @override
-  Future<void> getCategory() async {
+  Future<List<Category>> getCategory() async {
     try {
       return await categotyCollection.get().then((value) => value.docs
           .map(
