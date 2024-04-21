@@ -3,6 +3,7 @@ import 'package:expence_tracker/screens/add_expence/views/category_dialog_box.da
 import 'package:expence_tracker/screens/add_expence/widgets/expence_input_box.dart';
 import 'package:expence_tracker/widgets/app_text.dart';
 import 'package:expence_tracker/widgets/submit_button.dart';
+import 'package:expense_repository/expense_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,12 +21,14 @@ class _AddExpenseState extends State<AddExpense> {
   TextEditingController expenseController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  late Expense expense;
 
-  DateTime selectedDate = DateTime.now();
+  // DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
     dateController.text = DateFormat('EEE, dd/MM/yyyy').format(DateTime.now());
+    expense = Expense.empty;
     super.initState();
   }
 
@@ -59,12 +62,19 @@ class _AddExpenseState extends State<AddExpense> {
                       controller: categoryController,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white,
-                        prefixIcon: Icon(
-                          Icons.category_rounded,
-                          size: 18,
-                          color: Colors.grey.shade400,
-                        ),
+                        fillColor: expense.category == Category.empty
+                            ? Colors.white
+                            : Color(expense.category.color),
+                        prefixIcon: expense.category == Category.empty
+                            ? Icon(
+                                Icons.category_rounded,
+                                size: 18,
+                                color: Colors.grey.shade400,
+                              )
+                            : Image.asset(
+                                'assets/icons/${expense.category.icon}.png',
+                                scale: 2,
+                              ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             CupertinoIcons.add,
@@ -73,7 +83,7 @@ class _AddExpenseState extends State<AddExpense> {
                           ),
                           onPressed: () async {
                             var newCategory = await categoryDialogBox(context);
-                            print(newCategory);
+                            // print(newCategory);
                             setState(() {
                               state.categories.insert(0, newCategory);
                             });
@@ -104,6 +114,13 @@ class _AddExpenseState extends State<AddExpense> {
                           itemBuilder: (context, index) {
                             return Card(
                               child: ListTile(
+                                onTap: () {
+                                  setState(() {
+                                    expense.category = state.categories[index];
+                                    categoryController.text =
+                                        expense.category.name;
+                                  });
+                                },
                                 leading: Image.asset(
                                   'assets/icons/${state.categories[index].icon}.png',
                                   scale: 2,
@@ -153,7 +170,7 @@ class _AddExpenseState extends State<AddExpense> {
       onTap: () async {
         DateTime? newDate = await showDatePicker(
           context: context,
-          initialDate: selectedDate,
+          initialDate: expense.date,
           firstDate: DateTime.now(),
           lastDate: DateTime.now().add(
             const Duration(days: 365),
@@ -163,7 +180,8 @@ class _AddExpenseState extends State<AddExpense> {
         if (newDate != null) {
           setState(() {
             dateController.text = DateFormat('EEE, dd/MM/yyyy').format(newDate);
-            selectedDate = newDate;
+            // selectedDate = newDate;
+            expense.date = newDate;
           });
         }
       },
