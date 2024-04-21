@@ -1,5 +1,6 @@
 import 'package:expence_tracker/screens/add_expence/blocs/create_expense_bloc/create_expense_bloc.dart';
 import 'package:expence_tracker/screens/add_expence/blocs/get_categories_bloc/get_categories_bloc.dart';
+import 'package:expence_tracker/screens/add_expence/utils/get_contrast_color.dart';
 import 'package:expence_tracker/screens/add_expence/views/category_dialog_box.dart';
 import 'package:expence_tracker/screens/add_expence/widgets/expence_input_box.dart';
 import 'package:expence_tracker/widgets/app_text.dart';
@@ -74,6 +75,11 @@ class _AddExpenseState extends State<AddExpense> {
                         readOnly: true,
                         onTap: () {},
                         controller: categoryController,
+                        style: TextStyle(
+                          color: getTextColor(
+                            Color(expense.category.color),
+                          ),
+                        ),
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: expense.category == Category.empty
@@ -88,6 +94,9 @@ class _AddExpenseState extends State<AddExpense> {
                               : Image.asset(
                                   'assets/icons/${expense.category.icon}.png',
                                   scale: 2,
+                                  color: getTextColor(
+                                    Color(expense.category.color),
+                                  ),
                                 ),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -124,36 +133,53 @@ class _AddExpenseState extends State<AddExpense> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: ListView.builder(
-                            itemCount: state.categories.length,
-                            itemBuilder: (context, index) {
-                              return Card(
-                                child: ListTile(
-                                  onTap: () {
-                                    setState(() {
-                                      expense.category =
-                                          state.categories[index];
-                                      categoryController.text =
-                                          expense.category.name;
-                                    });
+                          child: state.categories.isEmpty
+                              ? const Center(
+                                  child: AppText(
+                                    text: 'No Category exist! Create one',
+                                    fontSize: 18,
+                                    textColor: Colors.grey,
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: state.categories.length,
+                                  itemBuilder: (context, index) {
+                                    return Card(
+                                      child: ListTile(
+                                        onTap: () {
+                                          setState(() {
+                                            expense.category =
+                                                state.categories[index];
+                                            categoryController.text =
+                                                expense.category.name;
+                                          });
+                                        },
+                                        leading: Image.asset(
+                                          'assets/icons/${state.categories[index].icon}.png',
+                                          scale: 2,
+                                          color: getTextColor(
+                                            Color(
+                                                state.categories[index].color),
+                                          ),
+                                        ),
+                                        title: AppText(
+                                          text: state.categories[index].name,
+                                          fontSize: 16,
+                                          textColor: getTextColor(
+                                            Color(
+                                                state.categories[index].color),
+                                          ),
+                                        ),
+                                        tileColor: Color(
+                                            state.categories[index].color),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                    );
                                   },
-                                  leading: Image.asset(
-                                    'assets/icons/${state.categories[index].icon}.png',
-                                    scale: 2,
-                                  ),
-                                  title: AppText(
-                                    text: state.categories[index].name,
-                                    fontSize: 16,
-                                  ),
-                                  tileColor:
-                                      Color(state.categories[index].color),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
                                 ),
-                              );
-                            },
-                          ),
                         ),
                       ),
                       const Gap(16.0),
