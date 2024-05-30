@@ -52,6 +52,7 @@ class _AddExpenseState extends State<AddExpense> {
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
           ),
@@ -184,9 +185,7 @@ class _AddExpenseState extends State<AddExpense> {
                       ),
                       const Gap(16.0),
                       datePickerInput(context),
-                      const Expanded(
-                        child: Gap(22.0),
-                      ),
+                      const Gap(22.0),
                       if (isLoading)
                         const Center(
                           child: CircularProgressIndicator(),
